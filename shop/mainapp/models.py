@@ -1,4 +1,8 @@
 from django.db import models
+from django.contrib.auth import get_user_model
+from django.contrib.contenttypes.models import ContentType
+
+User = get_user_model()
 
 
 # ***************
@@ -32,4 +36,41 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
- 
+
+
+class CartProduct(models.Model):
+    user = models.ForeignKey('Customer', verbose_name='Покупатель', on_delete=models.CASCADE)
+    cart = models.ForeignKey('Cart', verbose_name='Корзина', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, verbose_name='Товар', on_delete=models.CASCADE)
+    qty = models.PositiveIntegerField(default=1)
+    finals_price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Общая Цена')
+
+    def __str__(self):
+        return "Продукт: {}(для корзины)".format(self.product.title)
+
+
+class Cart(models.Model):
+    owner = models.ForeignKey('Customer', verbose_name='Владелец', on_delete=models.CASCADE)
+    product = models.ManyToManyField()
+    total_product = models.DecimalField(max_digit=9, decimal_places=2, verbose_name='Общая Цена')
+
+    def __str__(self):
+        return str(self.id)
+
+
+class Customer(models.Model):
+    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
+    phone = models.CharField(max_length=28, verbose_name='Номер телефона')
+    address = models.CharField(max_length=255, verbose_name='Адрес')
+
+    def __str__(self):
+        return "Покупатель: {} {}".format(self.user.first_name, self.user.last_name)
+
+
+class Specification(models.Model):
+    content = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    name = models.CharField(max_length=255, verbose_name='Имя товара для характеристика')
+
+    def __str__(self):
+        return "Характеристика для товара".format(self.name)
