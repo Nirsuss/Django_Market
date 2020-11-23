@@ -42,7 +42,7 @@ class Product(models.Model):
         return self.title
 
 
-class NotebookProduct(Product):
+class Notebook(Product):
     diagonal = models.CharField(max_length=255, verbose_name='Диагональ')
     display_type = models.CharField(max_length=255, verbose_name='Тип дисплея')
     processor_freq = models.CharField(max_length=255, verbose_name='Частота процессора')
@@ -54,9 +54,9 @@ class NotebookProduct(Product):
         return "{} : {}".format(self.category.name, self.title)
 
 
-class PhoneProduct(Product):
+class Phone(Product):
     diagonal = models.CharField(max_length=255, verbose_name='Диагональ')
-    display_type = models.CharField(max_length=255, verbose='Тип дисплея')
+    display_type = models.CharField(max_length=255, verbose_name='Тип дисплея')
     resolution = models.CharField(max_length=255, verbose_name='Разрешение')
     accum_volume = models.CharField(max_length=255, verbose_name='Емкость Аккумулятора')
     ram = models.CharField(max_length=255, verbose_name='Оперативная память')
