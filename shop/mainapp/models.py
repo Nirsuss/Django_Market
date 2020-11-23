@@ -69,6 +69,49 @@ class Phone(Product):
         return "{} : {}".format(self.category.name, self.title)
 
 
+class Beer(Product):
+    Percent_Alcohol = models.CharField(max_length=255, verbose_name='Процент Алкоголя')
+    Bitterness_Unit = models.CharField(max_length=255, verbose_name='Горечь')
+    Color_Beer = models.CharField(max_length=255, verbose_name='Цвет Пиво')
+
+    def __str__(self):
+        return "{} : {}".format(self.category.name, self.title)
+
+
+class Portraits(Product):
+    diagonal = models.CharField(max_length=255, verbose_name='Диагональ')
+    portraits_type = models.CharField(max_length=255, verbose_name='Тип Портрета')
+
+    def __str__(self):
+        return "{} : {}".format(self.category.name, self.title)
+
+
+class Underpants(Product):
+    size = models.CharField(max_length=255, verbose_name='Размер')
+    presence_drawing = models.BooleanField(default=True)
+    drawing = models.ImageField(verbose_name='Изображение')
+
+    def __str__(self):
+        return "{} : {}".format(self.category.name, self.title)
+
+
+class Socks(Product):
+    size = models.CharField(max_length=255, verbose_name='Размер')
+    presence_text = models.BooleanField(default=True)
+    drawing = models.ImageField(verbose_name='Изображение')
+
+    def __str__(self):
+        return "{} : {}".format(self.category.name, self.title)
+
+
+class Hats(Product):
+    size = models.CharField(max_length=255, verbose_name='Размер')
+    hats_type = models.CharField(max_length=255, verbose_name='Тип Портрета')
+
+    def __str__(self):
+        return "{} : {}".format(self.category.name, self.title)
+
+
 class CartProduct(models.Model):
     user = models.ForeignKey('Customer', verbose_name='Покупатель', on_delete=models.CASCADE)
     cart = models.ForeignKey('Cart', verbose_name='Корзина', on_delete=models.CASCADE, related_name='related_products')
