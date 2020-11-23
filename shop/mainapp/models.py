@@ -51,7 +51,7 @@ class NotebookProduct(Product):
     time_without_charge = models.CharField(max_length=255, verbose_name='Время работы аккумуляторы')
 
     def __str__(self):
-        return "{}:{}".format(self.category.name, self.title)
+        return "{} : {}".format(self.category.name, self.title)
 
 
 class PhoneProduct(Product):
@@ -64,6 +64,9 @@ class PhoneProduct(Product):
     sd_volume_max = models.CharField(max_length=255, verbose_name='Максимальный объем встроенной памяти')
     main_cam_mp = models.CharField(max_length=255, verbose_name='Основная камера')
     front_cam_mp = models.CharField(max_length=255, verbose_name='Фронтальная камера')
+
+    def __str__(self):
+        return "{} : {}".format(self.category.name, self.title)
 
 
 class CartProduct(models.Model):
